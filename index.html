@@ -1,81 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel on Heaven - Manali Kasol Trip</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
-    <div id="root"></div>
+import React, { useState, useEffect } from 'react';
+import { Mountain, Calendar, Users, MapPin, Tent, Flame, Camera, ChevronRight, Menu, X, Phone, Mail, Instagram, Facebook, Twitter, MessageCircle, Download, Send, User } from 'lucide-react';
+
+export default function TravelLanding() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeDay, setActiveDay] = useState(1);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    batch: 'batch1',
+    travelers: '1',
+    message: ''
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const itinerary = [
+    { day: 1, title: "Delhi to Manali", desc: "Evening departure from Rohini. Overnight journey in deluxe AC traveller." },
+    { day: 2, title: "Manali Local Sightseeing", desc: "Hadimba Temple, Van Vihar, Mall Road & Jogini Waterfall trek." },
+    { day: 3, title: "Rohtang & Sissu", desc: "Atal Tunnel, snow activities, DJ night & bonfire." },
+    { day: 4, title: "Kasol Camping", desc: "Paragliding, river rafting & riverside camping with music." },
+    { day: 5, title: "Old Manali Exploration", desc: "Bike ride through snow-capped mountains & Solang Valley." },
+    { day: 6, title: "Manikaran & Kasol Market", desc: "Hot spring bath, Gurudwara visit & cafe hopping." },
+    { day: 7, title: "Return to Delhi", desc: "Early morning arrival with unforgettable memories." }
+  ];
+
+  const inclusions = [
+    { icon: <Tent className="w-6 h-6" />, text: "4 Nights Stay" },
+    { icon: <Camera className="w-6 h-6" />, text: "All Sightseeing" },
+    { icon: <Flame className="w-6 h-6" />, text: "Bonfire & Music" },
+    { icon: <Users className="w-6 h-6" />, text: "Trip Leader" }
+  ];
+
+  const tripImages = [
+    { title: "Snow Paradise", img: "https://raw.githubusercontent.com/user-attachments/assets/YOUR_IMAGE_1", gradient: "from-blue-500 to-cyan-500" },
+    { title: "Mountain Views", img: "https://raw.githubusercontent.com/user-attachments/assets/YOUR_IMAGE_2", gradient: "from-purple-500 to-pink-500" },
+    { title: "Valley Vibes", img: "https://raw.githubusercontent.com/user-attachments/assets/YOUR_IMAGE_3", gradient: "from-indigo-500 to-purple-500" },
+    { title: "Riverside Camping", gradient: "from-green-500 to-teal-500" },
+    { title: "Adventure Time", gradient: "from-orange-500 to-red-500" },
+    { title: "Bonfire Nights", gradient: "from-yellow-500 to-orange-500" }
+  ];
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const message = `Hello! I want to book the Manali-Kasol trip.
     
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { Mountain, Calendar, Users, MapPin, Tent, Flame, Camera, ChevronRight, Menu, X, Phone, Mail, Instagram, Facebook, Twitter, MessageCircle, Download, Send, User } = lucide;
-
-        function TravelLanding() {
-          const [isMenuOpen, setIsMenuOpen] = useState(false);
-          const [scrolled, setScrolled] = useState(false);
-          const [activeDay, setActiveDay] = useState(1);
-          const [showBookingForm, setShowBookingForm] = useState(false);
-          const [formData, setFormData] = useState({
-            name: '',
-            email: '',
-            phone: '',
-            batch: 'batch1',
-            travelers: '1',
-            message: ''
-          });
-
-          useEffect(() => {
-            const handleScroll = () => {
-              setScrolled(window.scrollY > 50);
-            };
-            window.addEventListener('scroll', handleScroll);
-            return () => window.removeEventListener('scroll', handleScroll);
-          }, []);
-
-          const itinerary = [
-            { day: 1, title: "Delhi to Manali", desc: "Evening departure from Rohini. Overnight journey in deluxe AC traveller." },
-            { day: 2, title: "Manali Local Sightseeing", desc: "Hadimba Temple, Van Vihar, Mall Road & Jogini Waterfall trek." },
-            { day: 3, title: "Rohtang & Sissu", desc: "Atal Tunnel, snow activities, DJ night & bonfire." },
-            { day: 4, title: "Kasol Camping", desc: "Paragliding, river rafting & riverside camping with music." },
-            { day: 5, title: "Old Manali Exploration", desc: "Bike ride through snow-capped mountains & Solang Valley." },
-            { day: 6, title: "Manikaran & Kasol Market", desc: "Hot spring bath, Gurudwara visit & cafe hopping." },
-            { day: 7, title: "Return to Delhi", desc: "Early morning arrival with unforgettable memories." }
-          ];
-
-          const inclusions = [
-            { icon: React.createElement(Tent, { className: "w-6 h-6" }), text: "4 Nights Stay" },
-            { icon: React.createElement(Camera, { className: "w-6 h-6" }), text: "All Sightseeing" },
-            { icon: React.createElement(Flame, { className: "w-6 h-6" }), text: "Bonfire & Music" },
-            { icon: React.createElement(Users, { className: "w-6 h-6" }), text: "Trip Leader" }
-          ];
-
-          const tripImages = [
-            { title: "Snow Paradise", img: "https://i.imgur.com/7C8DJ04.jpg", gradient: "from-blue-500 to-cyan-500" },
-            { title: "Mountain Views", img: "https://i.imgur.com/0erMZqx.jpg", gradient: "from-purple-500 to-pink-500" },
-            { title: "Valley Vibes", img: "https://i.imgur.com/ItDZsUj.jpg", gradient: "from-indigo-500 to-purple-500" },
-            { title: "Riverside Camping", gradient: "from-green-500 to-teal-500" },
-            { title: "Adventure Time", gradient: "from-orange-500 to-red-500" },
-            { title: "Bonfire Nights", gradient: "from-yellow-500 to-orange-500" }
-          ];
-
-          const handleInputChange = (e) => {
-            setFormData({
-              ...formData,
-              [e.target.name]: e.target.value
-            });
-          };
-
-          const handleSubmit = (e) => {
-            e.preventDefault();
-            const message = `Hello! I want to book the Manali-Kasol trip.
-            
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
@@ -83,12 +67,13 @@ Batch: ${formData.batch === 'batch1' ? '11-16 Dec' : '02-07 Jan'}
 Number of Travelers: ${formData.travelers}
 Message: ${formData.message}`;
 
-            const whatsappUrl = `https://wa.me/919351168521?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-          };
+    const whatsappUrl = `https://wa.me/919351168521?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
-          const downloadBrochure = () => {
-            const brochureContent = `
+  const downloadBrochure = () => {
+    // Create a simple text version of the brochure
+    const brochureContent = `
 TRAVEL ON HEAVEN
 Manali • Kasol • Sissu Trip
 5 Nights / 6 Days
@@ -130,113 +115,593 @@ Nitesh: 93511 68521
 Pratyaksha: 70112 34228
 
 CANCELLATION POLICY:
-- No refund on initial booking amount
-- 30+ days before: 50% cancellation fee
-- 15-30 days before: 75% cancellation fee
-- 0-15 days before: 100% cancellation fee
+• No refund on initial booking amount
+• 30+ days before: 50% cancellation fee
+• 15-30 days before: 75% cancellation fee
+• 0-15 days before: 100% cancellation fee
 
 Book your adventure today!
-            `;
+    `;
 
-            const blob = new Blob([brochureContent], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Manali-Kasol-Trip-Brochure.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-          };
+    const blob = new Blob([brochureContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Manali-Kasol-Trip-Brochure.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
 
-          const whatsappContact = () => {
-            window.open('https://wa.me/919351168521', '_blank');
-          };
+  const whatsappContact = () => {
+    window.open('https://wa.me/919351168521', '_blank');
+  };
 
-          return (
-            <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
-              {/* Floating WhatsApp Button */}
-              <button
-                onClick={whatsappContact}
-                className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all transform hover:scale-110"
-                aria-label="Contact on WhatsApp"
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Floating WhatsApp Button */}
+      <button
+        onClick={whatsappContact}
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all transform hover:scale-110"
+        aria-label="Contact on WhatsApp"
+      >
+        <MessageCircle className="w-7 h-7" />
+      </button>
+
+      {/* Navigation */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center space-x-2">
+              <Mountain className="w-8 h-8 text-cyan-400" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Travel on Heaven
+              </span>
+            </div>
+            
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#home" className="hover:text-cyan-400 transition-colors">Home</a>
+              <a href="#gallery" className="hover:text-cyan-400 transition-colors">Gallery</a>
+              <a href="#itinerary" className="hover:text-cyan-400 transition-colors">Itinerary</a>
+              <a href="#details" className="hover:text-cyan-400 transition-colors">Details</a>
+              <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
+              
+              {/* Social Media Links */}
+              <div className="flex items-center space-x-3">
+                <a href="https://www.instagram.com/nitesh_mahala_07?igsh=MWtkNWRoZzI0NmEyYw==" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+
+            <button 
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-slate-800 border-t border-slate-700">
+            <div className="px-4 py-4 space-y-3">
+              <a href="#home" className="block hover:text-cyan-400 transition-colors">Home</a>
+              <a href="#gallery" className="block hover:text-cyan-400 transition-colors">Gallery</a>
+              <a href="#itinerary" className="block hover:text-cyan-400 transition-colors">Itinerary</a>
+              <a href="#details" className="block hover:text-cyan-400 transition-colors">Details</a>
+              <a href="#contact" className="block hover:text-cyan-400 transition-colors">Contact</a>
+              <div className="flex space-x-4 pt-3">
+                <a href="https://www.instagram.com/nitesh_mahala_07?igsh=MWtkNWRoZzI0NmEyYw==" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="relative pt-32 pb-20 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 animate-pulse"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                Manali • Kasol • Sissu
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-300 mb-8">
+              5 Nights • 6 Days of Pure Adventure
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <div className="bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-cyan-400/30">
+                <Calendar className="inline w-5 h-5 mr-2 text-cyan-400" />
+                <span className="font-semibold">Batch 1:</span> 11-16 Dec
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-cyan-400/30">
+                <Calendar className="inline w-5 h-5 mr-2 text-cyan-400" />
+                <span className="font-semibold">Batch 2:</span> 02-07 Jan
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+              <button 
+                onClick={() => setShowBookingForm(true)}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/50"
               >
-                {React.createElement(MessageCircle, { className: "w-7 h-7" })}
+                Book Now at ₹6,500/-
               </button>
+              <button
+                onClick={downloadBrochure}
+                className="bg-slate-800/50 backdrop-blur-sm border-2 border-cyan-400 hover:bg-slate-700/50 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2"
+              >
+                <Download className="w-5 h-5" />
+                Download Brochure
+              </button>
+            </div>
+          </div>
 
-              {/* Navigation */}
-              <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'}`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="flex justify-between items-center h-20">
-                    <div className="flex items-center space-x-2">
-                      {React.createElement(Mountain, { className: "w-8 h-8 text-cyan-400" })}
-                      <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                        Travel on Heaven
-                      </span>
-                    </div>
-                    
-                    <div className="hidden md:flex items-center space-x-8">
-                      <a href="#home" className="hover:text-cyan-400 transition-colors">Home</a>
-                      <a href="#gallery" className="hover:text-cyan-400 transition-colors">Gallery</a>
-                      <a href="#itinerary" className="hover:text-cyan-400 transition-colors">Itinerary</a>
-                      <a href="#details" className="hover:text-cyan-400 transition-colors">Details</a>
-                      <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
-                      
-                      <div className="flex items-center space-x-3">
-                        <a href="https://www.instagram.com/nitesh_mahala_07?igsh=MWtkNWRoZzI0NmEyYw==" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
-                          {React.createElement(Instagram, { className: "w-5 h-5" })}
-                        </a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
-                          {React.createElement(Facebook, { className: "w-5 h-5" })}
-                        </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
-                          {React.createElement(Twitter, { className: "w-5 h-5" })}
-                        </a>
-                      </div>
-                    </div>
+          {/* Feature Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {inclusions.map((item, idx) => (
+              <div key={idx} className="bg-slate-800/30 backdrop-blur-sm border border-slate-700 rounded-xl p-6 text-center hover:border-cyan-400/50 transition-all hover:scale-105">
+                <div className="flex justify-center mb-3 text-cyan-400">
+                  {item.icon}
+                </div>
+                <p className="text-sm font-medium">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                    <button 
-                      className="md:hidden"
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                      {isMenuOpen ? React.createElement(X) : React.createElement(Menu)}
-                    </button>
+      {/* Trip Images Gallery */}
+      <section id="gallery" className="py-20 px-4 bg-slate-800/30">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+            Glimpses from <span className="text-cyan-400">Our Trips</span>
+          </h2>
+          <p className="text-center text-slate-400 mb-12">Memories captured in the Himalayas</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tripImages.map((img, idx) => (
+              <div 
+                key={idx}
+                className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer shadow-xl hover:shadow-2xl transition-all"
+              >
+                {img.img ? (
+                  <>
+                    <img 
+                      src={img.img} 
+                      alt={img.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${img.gradient} opacity-80 group-hover:opacity-90 transition-opacity`}></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Camera className="w-16 h-16 text-white/50 group-hover:scale-110 transition-transform" />
+                    </div>
+                  </>
+                )}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                  <h3 className="text-xl font-bold text-white">{img.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-slate-400 mb-4">Want to see more? Follow us on social media!</p>
+            <div className="flex justify-center gap-4">
+              <a href="https://www.instagram.com/nitesh_mahala_07?igsh=MWtkNWRoZzI0NmEyYw==" target="_blank" rel="noopener noreferrer" 
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-6 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                <Instagram className="w-5 h-5" />
+                Instagram
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+                className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                <Facebook className="w-5 h-5" />
+                Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Itinerary Section */}
+      <section id="itinerary" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+            Your <span className="text-cyan-400">Adventure</span> Awaits
+          </h2>
+          <p className="text-center text-slate-400 mb-12">Day-by-day journey through the Himalayas</p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {itinerary.map((item) => (
+              <div 
+                key={item.day}
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 hover:border-cyan-400/50 transition-all cursor-pointer group"
+                onClick={() => setActiveDay(item.day)}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold text-lg">
+                    {item.day}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {isMenuOpen && (
-                  <div className="md:hidden bg-slate-800 border-t border-slate-700">
-                    <div className="px-4 py-4 space-y-3">
-                      <a href="#home" className="block hover:text-cyan-400 transition-colors">Home</a>
-                      <a href="#gallery" className="block hover:text-cyan-400 transition-colors">Gallery</a>
-                      <a href="#itinerary" className="block hover:text-cyan-400 transition-colors">Itinerary</a>
-                      <a href="#details" className="block hover:text-cyan-400 transition-colors">Details</a>
-                      <a href="#contact" className="block hover:text-cyan-400 transition-colors">Contact</a>
-                      <div className="flex space-x-4 pt-3">
-                        <a href="https://www.instagram.com/nitesh_mahala_07?igsh=MWtkNWRoZzI0NmEyYw==" target="_blank" rel="noopener noreferrer">
-                          {React.createElement(Instagram, { className: "w-5 h-5" })}
-                        </a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                          {React.createElement(Facebook, { className: "w-5 h-5" })}
-                        </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                          {React.createElement(Twitter, { className: "w-5 h-5" })}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </nav>
-
-              {/* Rest of the component continues... */}
-              {/* Due to character limits, I'll provide the download link approach */}
-              
+      {/* Highlights Section */}
+      <section className="py-20 px-4 bg-slate-800/30">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+            Trip <span className="text-cyan-400">Highlights</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 hover:border-cyan-400/50 transition-all">
+              <MapPin className="w-12 h-12 text-cyan-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-3">Epic Destinations</h3>
+              <ul className="space-y-2 text-slate-400">
+                <li>• Rohtang Pass & Atal Tunnel</li>
+                <li>• Sissu Valley</li>
+                <li>• Old Manali & Solang</li>
+                <li>• Kasol & Parvati Valley</li>
+                <li>• Manikaran Sahib</li>
+              </ul>
             </div>
-          );
-        }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<TravelLanding />);
-    </script>
-</body>
-</html>
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 hover:border-cyan-400/50 transition-all">
+              <Mountain className="w-12 h-12 text-cyan-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-3">Activities</h3>
+              <ul className="space-y-2 text-slate-400">
+                <li>• Snow Activities & Skiing</li>
+                <li>• Paragliding (Optional)</li>
+                <li>• River Rafting (Optional)</li>
+                <li>• Jogini Waterfall Trek</li>
+                <li>• Bike Rides</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 hover:border-cyan-400/50 transition-all">
+              <Flame className="w-12 h-12 text-cyan-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-3">Experiences</h3>
+              <ul className="space-y-2 text-slate-400">
+                <li>• Riverside Camping</li>
+                <li>• Bonfire Nights</li>
+                <li>• DJ & Music</li>
+                <li>• Cafe Hopping in Kasol</li>
+                <li>• Hot Spring Bath</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="details" className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 md:p-12 border-2 border-cyan-400/30 shadow-2xl">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl font-bold mb-2">All-Inclusive Package</h2>
+              <div className="text-6xl font-bold text-cyan-400 mb-4">₹6,500/-</div>
+              <p className="text-slate-400">Per Person</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div>
+                <h3 className="text-xl font-bold mb-4 text-cyan-400">✓ Inclusions</h3>
+                <ul className="space-y-2 text-slate-300">
+                  <li>• 4 Nights Accommodation</li>
+                  <li>• 6 Meals (3 Breakfast + 3 Dinner)</li>
+                  <li>• Deluxe AC Traveller</li>
+                  <li>• All Sightseeing</li>
+                  <li>• Bonfire & Music</li>
+                  <li>• Trip Leader</li>
+                  <li>• All Permits & Taxes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-4 text-orange-400">✗ Exclusions</h3>
+                <ul className="space-y-2 text-slate-300">
+                  <li>• 5% GST</li>
+                  <li>• Lunch & Highway Meals</li>
+                  <li>• Snow Activities</li>
+                  <li>• Paragliding & Rafting</li>
+                  <li>• Entry Tickets</li>
+                  <li>• Personal Expenses</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="text-center space-y-4">
+              <button 
+                onClick={() => setShowBookingForm(true)}
+                className="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 px-12 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/50"
+              >
+                Reserve Your Spot Now
+                <ChevronRight className="inline ml-2" />
+              </button>
+              <div>
+                <button
+                  onClick={downloadBrochure}
+                  className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
+                  <Download className="w-5 h-5" />
+                  Download Detailed Brochure
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 bg-slate-800/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">
+            Ready to <span className="text-cyan-400">Explore?</span>
+          </h2>
+          <p className="text-xl text-slate-300 mb-12">
+            Get in touch with us to book your adventure
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <a href="tel:9368223654" className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-400/50 transition-all">
+              <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
+              <p className="font-bold">Vedant</p>
+              <p className="text-slate-400">93682 23654</p>
+            </a>
+
+            <a href="tel:9351168521" className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-400/50 transition-all">
+              <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
+              <p className="font-bold">Nitesh</p>
+              <p className="text-slate-400">93511 68521</p>
+            </a>
+
+            <a href="tel:7011234228" className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-400/50 transition-all">
+              <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
+              <p className="font-bold">Pratyaksha</p>
+              <p className="text-slate-400">70112 34228</p>
+            </a>
+          </div>
+
+          <div className="flex justify-center gap-4 mb-12">
+            <button
+              onClick={whatsappContact}
+              className="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center gap-2"
+            >
+              <MessageCircle className="w-6 h-6" />
+              Chat on WhatsApp
+            </button>
+          </div>
+
+          <div className="bg-slate-800/30 rounded-2xl p-8 border border-slate-700">
+            <h3 className="text-2xl font-bold mb-4 text-orange-400">Cancellation Policy</h3>
+            <div className="text-left max-w-2xl mx-auto space-y-3 text-slate-300">
+              <p>• No refund on initial booking amount</p>
+              <p>• 30+ days before: 50% cancellation fee</p>
+              <p>• 15-30 days before: 75% cancellation fee</p>
+              <p>• 0-15 days before: 100% cancellation fee</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 border-t border-slate-800 py-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <Mountain className="w-6 h-6 text-cyan-400" />
+                <span className="text-xl font-bold">Travel on Heaven</span>
+              </div>
+              <p className="text-slate-400 text-sm">
+                Creating unforgettable memories in the Himalayas
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-3">Quick Links</h4>
+              <div className="space-y-2 text-sm text-slate-400">
+                <a href="#gallery" className="block hover:text-cyan-400 transition-colors">Gallery</a>
+                <a href="#itinerary" className="block hover:text-cyan-400 transition-colors">Itinerary</a>
+                <a href="#details" className="block hover:text-cyan-400 transition-colors">Pricing</a>
+                <a href="#contact" className="block hover:text-cyan-400 transition-colors">Contact</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-3">Follow Us</h4>
+              <div className="flex gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                  className="bg-slate-800 hover:bg-slate-700 p-3 rounded-full transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+                  className="bg-slate-800 hover:bg-slate-700 p-3 rounded-full transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+                  className="bg-slate-800 hover:bg-slate-700 p-3 rounded-full transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <button
+                  onClick={whatsappContact}
+                  className="bg-slate-800 hover:bg-slate-700 p-3 rounded-full transition-colors">
+                  <MessageCircle className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-500 text-xs">
+              © 2024 Travel on Heaven. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Booking Form Modal */}
+      {showBookingForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-slate-800 rounded-3xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto border-2 border-cyan-400/30 shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-cyan-400">Book Your Trip</h3>
+              <button
+                onClick={() => setShowBookingForm(false)}
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Full Name *</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-10 py-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                    placeholder="Enter your name"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Email *</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-10 py-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Phone Number *</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-10 py-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                    placeholder="10-digit mobile number"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Select Batch *</label>
+                <select
+                  name="batch"
+                  required
+                  value={formData.batch}
+                  onChange={handleInputChange}
+                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                >
+                  <option value="batch1">Batch 1: 11-16 December</option>
+                  <option value="batch2">Batch 2: 02-07 January</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Number of Travelers *</label>
+                <div className="relative">
+                  <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <select
+                    name="travelers"
+                    required
+                    value={formData.travelers}
+                    onChange={handleInputChange}
+                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-10 py-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                  >
+                    <option value="1">1 Person</option>
+                    <option value="2">2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                    <option value="6+">6+ People</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Additional Message (Optional)</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows="3"
+                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+                  placeholder="Any special requests or questions?"
+                ></textarea>
+              </div>
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Send via WhatsApp
+                </button>
+                <p className="text-xs text-slate-400 text-center mt-3">
+                  You'll be redirected to WhatsApp to complete your booking
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
